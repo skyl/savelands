@@ -1,0 +1,26 @@
+# http://witterk.blogspot.com/2012/05/gitignore-for-gwt-and-java-app-engine.html
+*.class
+# Package Files #
+*.jar
+*.war
+# gwt caches and compiled units #
+/target
+war/savelandtree/
+gwt-unitCache/
+test-classes/
+www-test/
+# boilerplate generated classes #
+.apt_generated/
+# more caches and things from deploy #
+war/WEB-INF/deploy/
+war/WEB-INF/classes/
+# App engine generated #
+war/WEB-INF/appengine-generated/
+# eclipse scrap pages
+*.jpage
+
+# things i might use later? that were auto-generated
+jdoconfig.xml
+persistence.xml
+log4j.properties
+
