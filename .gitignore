@@ -25,4 +25,5 @@ war/WEB-INF/appengine-generated/
 jdoconfig.xml
 persistence.xml
 log4j.properties
+/.gwt
 
