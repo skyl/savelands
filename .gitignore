@@ -19,6 +19,8 @@ war/WEB-INF/appengine-generated/
 # eclipse scrap pages
 *.jpage
 
+/.gwt
+
 # things i might use later? that were auto-generated
 jdoconfig.xml
 persistence.xml

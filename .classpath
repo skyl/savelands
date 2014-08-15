@@ -20,7 +20,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-maps-api-3.10.0-alpha-8-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gwt-ajaxloader.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-1.0-sdk-1.9.7.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/appengine-api-1.0-sdk-1.9.8.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-ajaxloader.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
