@@ -18,39 +18,41 @@ import com.saveland.ancestry.server.models.PersonEntity;
  */
 @SuppressWarnings("serial")
 public class PersonServiceImpl extends RemoteServiceServlet implements
-PersonService {
+        PersonService {
 
-	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    private DatastoreService datastore = DatastoreServiceFactory
+            .getDatastoreService();
 
-	@Override
-	public String greetServer(String input) throws IllegalArgumentException {
-		return input;
-	}
+    @Override
+    public String greetServer(String input) throws IllegalArgumentException {
+        return input;
+    }
 
-	@Override
-	public ArrayList<Person> getPeople() {
-		ArrayList<Person> people = new ArrayList<Person>();
-		Query q = new Query("Person");
-		// Use PreparedQuery interface to retrieve results
-		PreparedQuery pq = datastore.prepare(q);
-		for (Entity e : pq.asIterable()) {
-			people.add(PersonEntity.createPersonFromEntity(e));
-		}
-		return people;
-	}
+    @Override
+    public ArrayList<Person> getPeople() {
+        ArrayList<Person> people = new ArrayList<Person>();
+        Query q = new Query("Person");
+        // Use PreparedQuery interface to retrieve results
+        PreparedQuery pq = datastore.prepare(q);
+        for (Entity e : pq.asIterable()) {
+            people.add(PersonEntity.createPersonFromEntity(e));
+        }
+        return people;
+    }
 
-	@Override
-	public Person savePerson(Person person) {
-		try {
-			log("PERSONENTITY.savePerson");
-			return PersonEntity.savePerson(person);
-		} catch (EntityNotFoundException e) {
-			log("ENTITY NOT FOUND");
-			// TODO - how should we handle this?
-			// The client interface can not throw a datastore exception .. hrm ...
-			e.printStackTrace();
-			return person;
-		}
-	}
+    @Override
+    public Person savePerson(Person person) {
+        try {
+            log("PERSONENTITY.savePerson");
+            return PersonEntity.savePerson(person);
+        } catch (EntityNotFoundException e) {
+            log("ENTITY NOT FOUND");
+            // TODO - how should we handle this?
+            // The client interface can not throw a datastore exception .. hrm
+            // ...
+            e.printStackTrace();
+            return person;
+        }
+    }
 
 }

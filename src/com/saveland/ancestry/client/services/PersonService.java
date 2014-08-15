@@ -11,9 +11,9 @@ import com.saveland.ancestry.client.models.Person;
  */
 @RemoteServiceRelativePath("person")
 public interface PersonService extends RemoteService {
-	String greetServer(String name) throws IllegalArgumentException;
+    String greetServer(String name) throws IllegalArgumentException;
 
-	ArrayList<Person> getPeople();
+    ArrayList<Person> getPeople();
 
-	Person savePerson(Person person);
+    Person savePerson(Person person);
 }

@@ -49,155 +49,158 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.saveland.ancestry.client.models.Person;
 
-public class InfoWindowMapWidget extends Composite implements ClientDataObserver {
+public class InfoWindowMapWidget extends Composite implements
+        ClientDataObserver {
 
-	private VerticalPanel pWidget;
-	private MapWidget mapWidget;
+    private VerticalPanel pWidget;
+    private MapWidget mapWidget;
 
-	private ClientData cData;
+    private ClientData cData;
 
-	InfoWindowOptions options = InfoWindowOptions.newInstance();
-	InfoWindow iw;
+    InfoWindowOptions options = InfoWindowOptions.newInstance();
+    InfoWindow iw;
 
-	public InfoWindowMapWidget(ClientData cd) {
-		cData = cd;
-		pWidget = new VerticalPanel();
-		initWidget(pWidget);
-		draw();
-	}
+    public InfoWindowMapWidget(ClientData cd) {
+        cData = cd;
+        pWidget = new VerticalPanel();
+        initWidget(pWidget);
+        draw();
+    }
 
-	private void draw() {
-		pWidget.clear();
-		drawMap();
-		drawControls();
-	}
+    private void draw() {
+        pWidget.clear();
+        drawMap();
+        drawControls();
+    }
 
-	protected void drawInfoWindow(String key, final Marker marker, MouseEvent mouseEvent) {
-		if (marker == null || mouseEvent == null) {
-			return;
-		}
+    protected void drawInfoWindow(String key, final Marker marker,
+            MouseEvent mouseEvent) {
+        if (marker == null || mouseEvent == null) {
+            return;
+        }
 
-		if (iw != null) {
-			iw.close();
-		}
+        if (iw != null) {
+            iw.close();
+        }
 
-		Person person = (Person) cData.peopleKeyMap.get(key);
+        Person person = (Person) cData.peopleKeyMap.get(key);
 
-		HTML html = new HTML(
-				person.getDisplayName()
-				);
-		VerticalPanel vp = new VerticalPanel();
-		vp.add(html);
+        HTML html = new HTML(person.getDisplayName());
+        VerticalPanel vp = new VerticalPanel();
+        vp.add(html);
 
-		options.setContent(vp);
-		iw = InfoWindow.newInstance(options);
-		iw.open(mapWidget, marker);
+        options.setContent(vp);
+        iw = InfoWindow.newInstance(options);
+        iw.open(mapWidget, marker);
 
-		// If you want to clear widgets, Use options.clear() to remove the widgets
-		// from map
-		// options.clear();
-	}
+        // If you want to clear widgets, Use options.clear() to remove the
+        // widgets
+        // from map
+        // options.clear();
+    }
 
-	private void drawMap() {
-		LatLng center = LatLng.newInstance(40, -98);
-		MapOptions opts = MapOptions.newInstance();
-		opts.setZoom(4);
-		opts.setCenter(center);
-		opts.setMapTypeId(MapTypeId.HYBRID);
+    private void drawMap() {
+        LatLng center = LatLng.newInstance(40, -98);
+        MapOptions opts = MapOptions.newInstance();
+        opts.setZoom(4);
+        opts.setCenter(center);
+        opts.setMapTypeId(MapTypeId.HYBRID);
 
-		mapWidget = new MapWidget(opts);
-		pWidget.add(mapWidget);
-		pWidget.setSize("100%", "100%");
-		mapWidget.setSize("100%", "100%");
+        mapWidget = new MapWidget(opts);
+        pWidget.add(mapWidget);
+        pWidget.setSize("100%", "100%");
+        mapWidget.setSize("100%", "100%");
 
-		mapWidget.addClickHandler(new ClickMapHandler() {
-			public void onEvent(ClickMapEvent event) {
-				//GWT.log("clicked on latlng=" + event.getMouseEvent().getLatLng());
-			}
-		});
+        mapWidget.addClickHandler(new ClickMapHandler() {
+            public void onEvent(ClickMapEvent event) {
+                // GWT.log("clicked on latlng=" +
+                // event.getMouseEvent().getLatLng());
+            }
+        });
 
-		mapWidget.addTilesLoadedHandler(new TilesLoadedMapHandler() {
-			public void onEvent(TilesLoadedMapEvent event) {
-				// Load something after the tiles load
-			}
-		});
-	}
+        mapWidget.addTilesLoadedHandler(new TilesLoadedMapHandler() {
+            public void onEvent(TilesLoadedMapEvent event) {
+                // Load something after the tiles load
+            }
+        });
+    }
 
-	private void drawControls() {
-		Button button = new Button("+ Add New Person");
-		button.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				GWT.log("Clicked Add");
-				cData.setCurrentPerson(null);
-			}
-		});
+    private void drawControls() {
+        Button button = new Button("+ Add New Person");
+        button.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                GWT.log("Clicked Add");
+                cData.setCurrentPerson(null);
+            }
+        });
 
-		FlowPanel widget = new FlowPanel();
-		widget.add(button);
-		//widget.add(new HTML("Custom Controls"));
-		widget.addStyleName("map-controls");
+        FlowPanel widget = new FlowPanel();
+        widget.add(button);
+        // widget.add(new HTML("Custom Controls"));
+        widget.addStyleName("map-controls");
 
-		// TODO I'm not able to get the stylesheet to work, but this works below
-		//DOM.setStyleAttribute(widget.getElement(), "background", "white");
-		//DOM.setStyleAttribute(widget.getElement(), "padding", "5px");
-		//DOM.setStyleAttribute(widget.getElement(), "margin", "3px");
-		//DOM.setStyleAttribute(widget.getElement(), "border", "3px solid #FF0000");
+        // TODO I'm not able to get the stylesheet to work, but this works below
+        // DOM.setStyleAttribute(widget.getElement(), "background", "white");
+        // DOM.setStyleAttribute(widget.getElement(), "padding", "5px");
+        // DOM.setStyleAttribute(widget.getElement(), "margin", "3px");
+        // DOM.setStyleAttribute(widget.getElement(), "border",
+        // "3px solid #FF0000");
 
-		mapWidget.setControls(ControlPosition.RIGHT_CENTER, widget);
-	}
+        mapWidget.setControls(ControlPosition.RIGHT_CENTER, widget);
+    }
 
-	private void addPersonToMap(Person person) {
-		final String key = person.key;
-		LatLng center = LatLng.newInstance(person.lat, person.lon);
-		MarkerOptions options = MarkerOptions.newInstance();
-		options.setPosition(center);
-		options.setTitle(person.getDisplayName());
+    private void addPersonToMap(Person person) {
+        final String key = person.key;
+        LatLng center = LatLng.newInstance(person.lat, person.lon);
+        MarkerOptions options = MarkerOptions.newInstance();
+        options.setPosition(center);
+        options.setTitle(person.getDisplayName());
 
-		final Marker marker = Marker.newInstance(options);
-		marker.setMap(mapWidget);
+        final Marker marker = Marker.newInstance(options);
+        marker.setMap(mapWidget);
 
-		marker.addClickHandler(new ClickMapHandler() {
-			public void onEvent(ClickMapEvent event) {
-				drawInfoWindow(key, marker, event.getMouseEvent());
-				// fill the form with the person data
-				cData.setCurrentPerson(key);
-			}
-		});
-	}
+        marker.addClickHandler(new ClickMapHandler() {
+            public void onEvent(ClickMapEvent event) {
+                drawInfoWindow(key, marker, event.getMouseEvent());
+                // fill the form with the person data
+                cData.setCurrentPerson(key);
+            }
+        });
+    }
 
-	@Override
-	public void onFetchPeopleSuccess() {
-		for (Person person : cData.people) {
-			addPersonToMap(person);
-		}
-	}
+    @Override
+    public void onFetchPeopleSuccess() {
+        for (Person person : cData.people) {
+            addPersonToMap(person);
+        }
+    }
 
-	@Override
-	public void onFetchPeopleFailure() {
-		// TODO Auto-generated method stub
+    @Override
+    public void onFetchPeopleFailure() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void onSavePersonSuccess(Person person) {
-		// TODO what if it is an update?
-		addPersonToMap(person);
-	}
+    @Override
+    public void onSavePersonSuccess(Person person) {
+        // TODO what if it is an update?
+        addPersonToMap(person);
+    }
 
-	@Override
-	public void onSavePersonFailure() {
-		// TODO Auto-generated method stub
+    @Override
+    public void onSavePersonFailure() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void onSetCurrentPerson() {
-		// Maybe we don't need to do anything here?
-		// We just clicked on the map and filled the form ...
-		// TODO Auto-generated method stub
-		if (cData.currentPerson.key == null) {
-			GWT.log("onSetCurrentPerson null closing IW");
-			iw.close();
-		}
-	}
+    @Override
+    public void onSetCurrentPerson() {
+        // Maybe we don't need to do anything here?
+        // We just clicked on the map and filled the form ...
+        // TODO Auto-generated method stub
+        if (cData.currentPerson.key == null) {
+            GWT.log("onSetCurrentPerson null closing IW");
+            iw.close();
+        }
+    }
 }
