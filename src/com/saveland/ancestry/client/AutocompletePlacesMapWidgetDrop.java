@@ -23,7 +23,6 @@ import com.google.gwt.maps.client.placeslib.PlaceGeometry;
 import com.google.gwt.maps.client.placeslib.PlaceResult;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-//import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -42,8 +41,7 @@ public class AutocompletePlacesMapWidgetDrop extends Composite {
     public MapWidget mapWidget;
     private TextBox tbPlaces;
     private MarkerOptions options = MarkerOptions.newInstance();
-    // options.setAnimation(Animation.DROP);
-    private Marker markerDrop = Marker.newInstance(options);
+    public Marker markerDrop = Marker.newInstance(options);
 
     public LatLng latlng;
 
@@ -129,6 +127,7 @@ public class AutocompletePlacesMapWidgetDrop extends Composite {
     }
 
     private void drawMarkerWithDropAnimation() {
+        markerDrop.setVisible(true);
         markerDrop.setAnimation(Animation.DROP);
         markerDrop.setMap(mapWidget);
         markerDrop.setPosition(latlng);
@@ -136,6 +135,7 @@ public class AutocompletePlacesMapWidgetDrop extends Composite {
     }
 
     public void setValue(String s) {
+        GWT.log("Autocomplete setValue");
         this.tbPlaces.setValue(s);
     }
 

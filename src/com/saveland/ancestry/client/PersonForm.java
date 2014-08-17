@@ -285,6 +285,8 @@ public class PersonForm extends DialogBox implements ClientDataObserver {
     public void onSetCurrentPerson() {
         GWT.log("PersonForm onSetCurrentPerson");
         if (cData.currentPerson.key == null) {
+            GWT.log("onSetCurrentPerson is null");
+            clearForm();
             // Person person = new Person();
             setText("Add New Person");
             // Enable animation.
@@ -292,6 +294,8 @@ public class PersonForm extends DialogBox implements ClientDataObserver {
             // Enable glass background.
             setGlassEnabled(true);
             this.show();
+            // this is a workaround, at best
+            this.wMap.markerDrop.setVisible(false);
             this.wMap.mapWidget.setSize("360px", "360px");
             this.wMap.mapWidget.triggerResize();
             return;
